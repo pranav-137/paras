@@ -1,0 +1,85 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <!-- Left side -->
+  <h1 class="text-shadow-lg mb-0">Tenant Dashboard</h1>
+
+  <!-- Right side (two buttons) -->
+  <div class="d-flex gap-2">
+    <%= link_to "My_Docs",tenantdocs_path, class: 'btn btn-secondary' %>
+
+    <%= link_to "Logout",
+                destroy_user_session_path,
+                method: :delete,
+                data: { confirm: "Are you sure?", turbo: false },
+                class: "btn btn-outline-danger px-4 fw-semibold" %>
+  </div>
+</div>
+
+
+<!-- Tenant List / Profile -->
+<div class="card mb-4 p-4 glass-card">
+  <h3>My Details</h3>
+  <% if @tenants.any? %>
+    <table class="table table-bordered bg-white">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tenants.each do |tenant| %>
+          <tr>
+            <td><%= tenant.first_name %> <%= tenant.last_name %></td>
+            <td><%= tenant.email %></td>
+            <td><%= tenant.city %></td>
+            <td><%= tenant.country %></td>
+            <td>
+              <%= link_to "View", tenant_path(tenant), class: "btn btn-sm btn-primary" %>
+              <%= link_to "Edit", edit_tenant_path(tenant), class: "btn btn-sm btn-warning" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No tenants found yet.</p>
+  <% end %>
+</div>
+
+<!-- Property Gallery Section -->
+<div class="card mb-4 p-4 glass-card">
+  <h3>Available Properties for Booking</h3>
+  <% if @properties.any? %>
+    <div class="row">
+      <% @properties.each do |property| %>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm">
+            <% if property.images.attached? %>
+              <%= image_tag property.images.first, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+            <% end %>
+            <div class="card-body">
+              <h5><%= property.name %></h5>
+              <%= link_to "Book Now", new_booking_path(property_id: property.id), class: "btn btn-primary btn-sm" %>
+              <%= link_to "View", details_property_path(property), class: "btn btn-info btn-sm me-2" %>
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No properties available for booking.</p>
+  <% end %>
+</div>
+
+<style>
+.glass-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  color: black;
+}
+</style>

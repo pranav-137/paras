@@ -1,0 +1,70 @@
+<style>
+    .glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+body {
+  color: #fff;
+}
+
+</style>
+<div class="container mt-5">
+  <div class="glass-card p-5 shadow-lg rounded-4 mx-auto" style="max-width: 700px;">
+    
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold mb-0 text-light">Tenant Details</h2>
+      <%= link_to 'Back to List', tenants_path, class: 'btn btn-outline-light btn-sm px-3' %>
+    </div>
+
+    <hr class="border-light opacity-50 mb-4">
+
+    <!-- Tenant Information -->
+    <div class="row g-3 text-light">
+      <div class="col-md-6">
+        <p><strong>First Name:</strong> <%= @tenant.first_name %></p>
+        <p><strong>Last Name:</strong> <%= @tenant.last_name %></p>
+        <p><strong>Email:</strong> <%= @tenant.email %></p>
+        <p><strong>Phone:</strong> <%= @tenant.phone %></p>
+      </div>
+
+      <div class="col-md-6">
+        <p><strong>Street Address:</strong> <%= @tenant.street_address %></p>
+        <p><strong>Street Address 2:</strong> <%= @tenant.street_address_2 %></p>
+        <p><strong>City:</strong> <%= @tenant.city %></p>
+        <p><strong>Region:</strong> <%= @tenant.region %></p>
+        <p><strong>Postal Code:</strong> <%= @tenant.postal_code %></p>
+        <p><strong>Country:</strong> <%= @tenant.country %></p>
+      </div>
+    </div>
+
+    <hr class="border-light opacity-50 my-4">
+
+    <div class="text-light">
+      <p><strong>Check-In Date:</strong> <%= @tenant.check_in %></p>
+      <p><strong>Check-Out Date:</strong> <%= @tenant.check_out %></p>
+      <p><strong>Adults:</strong> <%= @tenant.adults %></p>
+      <p><strong>Children:</strong> <%= @tenant.children %></p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <%= link_to 'Edit', edit_tenant_path(@tenant), class: 'btn btn-warning px-4 fw-semibold' %>
+      <%= link_to 'Delete', tenant_path(@tenant),
+          data: { turbo_method: :delete, confirm: 'Are you sure you want to delete this tenant?' },
+          class: 'btn btn-danger px-4 fw-semibold' %>
+    </div>
+
+  </div>
+</div>

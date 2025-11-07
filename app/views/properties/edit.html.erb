@@ -1,0 +1,37 @@
+<h1 class="text-center mb-4">✏️ Edit Property</h1>
+
+<%= form_with(model: @property, local: true, html: { multipart: true }) do |form| %>
+  <% if @property.errors.any? %>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h5>
+      <ul>
+        <% @property.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :images, "Upload Images (Max 3)" %>
+    <%= form.file_field :images, multiple: true, class: "form-control" %>
+    <% if @property.images.attached? %>
+      <p>Current Images:</p>
+      <div class="row">
+        <% @property.images.each do |img| %>
+          <div class="col-md-4 mb-2">
+            <%= image_tag img, class: "img-fluid rounded", style: "height: 150px; object-fit: cover;" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form.submit "Update Property", class: "btn btn-success" %>
+  <%= link_to "Cancel", property_path(@property), class: "btn btn-secondary" %>
+<% end %>

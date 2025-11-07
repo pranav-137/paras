@@ -1,0 +1,119 @@
+<div class="row align-items-center mb-4">
+    <div class="col-md-6 ps-4 text-shadow-lg">
+      <h1 class="display-5 fw-bold">About Paras</h1>
+      <p class="lead">Where Comfort Meets Care</p>
+    </div>
+    <div class="col-md-4 text-md-end mt-6 ">
+     <%= link_to "Explore Stay", gallery_path, class: "btn btn-primary btn-lg" %>
+    </div>
+  </div>
+<div class="container my-3">
+  <div class="row g-4 mb-5">
+    <div class="col-lg-6">
+      <div class="card shadow-sm h-90" style="background-color: rgba(0, 0, 0, 0.04); border: none;">
+  <div class="card-body text-white text-shadow-lg">
+    <h3 class="card-title">Making Stay Simple, Secure & Satisfying</h3>
+    <p class="card-text">At <strong>Paras</strong>, we believe that finding the perfect place to stay shouldn’t be stressful — it should be simple, secure, and satisfying. We combine modern convenience with genuine care to make your search for a comfortable home as easy as a few clicks.</p>
+    <p class="mb-0"><small class="text-light">Ideal for working professionals, relocators, and anyone seeking trusted short- or long-term accommodation.</small></p>
+  </div>
+</div>
+
+    </div>
+
+<div class="col-lg-6">
+  <div id="aboutHeroCarousel" class="carousel slide rounded overflow-hidden shadow-sm" data-bs-ride="carousel">
+    
+    <!-- Carousel indicators (dots) -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#aboutHeroCarousel" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#aboutHeroCarousel" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#aboutHeroCarousel" data-bs-slide-to="2"></button>
+    </div>
+
+    <div class="carousel-inner">
+  <div class="carousel-item active">
+    <%= image_tag "1.jpg", class: "d-block w-100", style: "height: 300px; object-fit: cover;", alt: "Paras - comfortable living" %>
+  </div>
+  <div class="carousel-item">
+    <%= image_tag "2.jpg", class: "d-block w-100", style: "height: 300px; object-fit: cover;", alt: "Paras - comfortable living" %>
+  </div>
+  <div class="carousel-item">
+    <%= image_tag "3.jpg", class: "d-block w-100", style: "height: 300px; object-fit: cover;", alt: "Paras - comfortable living" %>
+  </div>
+</div>
+
+
+    <!-- Caption below carousel -->
+    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+      <h5>Paras - comfortable living</h5>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <!-- Our Story -->
+  <div class="row mb-5 text-shadow-lg" style="background-color: rgba(0, 0, 0, 0.04);">
+    <div class="col">
+      <h2>Our Story</h2>
+      <p>Paras was created out of a simple realization — people deserve a place that truly feels like home, wherever life takes them. Whether you’re relocating for work, starting a new chapter in a new city, or simply looking for a comfortable and trusted stay, <strong>Paras</strong> ensures that comfort and reliability come first.</p>
+      <p>We started with a small vision: to bridge the gap between quality accommodation and trustworthy service. Today that vision has grown into a platform built on <strong>transparency, safety, and comfort</strong> — values that guide every stay we offer.</p>
+    </div>
+  </div>
+
+  <!-- Features / What Makes Us Different -->
+  <div class="row mb-5"style="background-color: rgba(0,0,0,0.1)">
+  <div class="col-12">
+    <h2 class="text-white">What Makes Us Different</h2>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 border-0 shadow-sm text-shadow-lg hover-card" style="background-color: rgba(0,0,0,0.0);">
+      <div class="card-body text-white">
+        <h5 class="card-title border-bottom pb-2">Verified Stays</h5>
+        <p class="card-text">Each property is personally checked for safety, hygiene, and quality to ensure a comfortable stay.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 border-0 shadow-sm text-shadow-lg hover-card" style="background-color: rgba(0,0,0,0);">
+      <div class="card-body text-white">
+        <h5 class="card-title border-bottom pb-2">Transparent Pricing</h5>
+        <p class="card-text">No hidden costs—only fair, upfront pricing so you know exactly what you’re paying for.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 border-0 shadow-sm text-shadow-lg hover-card" style="background-color: rgba(0,0,0,0.0);">
+      <div class="card-body text-white">
+        <h5 class="card-title border-bottom pb-2">Tailored Options</h5>
+        <p class="card-text">Choose from private apartments to shared spaces suited to your lifestyle and budget.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Promise & Vision -->
+  <div class="row mb-5">
+    <div class="col-md-6 hover-card"style="background-color: rgba(0,0,0,0.0);" >
+      <h3>Our Promise</h3>
+      <p>We don’t just help you find a place — we help you <strong>feel at home</strong>. Every room we list and every service we provide is backed by our commitment to care, comfort, and trust. For us, you’re not just another guest — you’re part of the Paras family.</p>
+    </div>
+    <div class="col-md-6 hover-card"style="background-color: rgba(0,0,0,0.0);" >
+      <h3>Our Vision</h3>
+      <p>To redefine the accommodation experience by creating spaces that bring comfort, safety, and belonging to every individual — no matter where they come from.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="row mb-4">
+    <div class="col text-center">
+      <%=link_to "Contact_Us",contact_path, class:"btn btn-outline-primary btn-lg me-2"%> 
+      <%= link_to "List Your Property", owners_path, class: "btn btn-primary btn-lg" %>
+      <%=link_to "Back",root_path, class:"btn btn-outline-primary btn-lg me-2"%> 
+    </div>
+  </div>
+</div>

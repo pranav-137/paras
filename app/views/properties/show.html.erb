@@ -1,0 +1,70 @@
+<style>
+.glass-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #222;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  padding: 15px;
+}
+
+.carousel-inner img {
+  border-radius: 12px;
+}
+</style>
+
+<div class="container my-5">
+  <div class="card glass-card shadow-lg border-0 mx-auto" style="max-width: 800px;">
+    <div class="card-body text-center p-4">
+
+      <!-- Property Title -->
+      <h2 class="fw-bold mb-4"><%= @property.name %></h2>
+
+      <!-- ✅ Image Carousel -->
+      <% if @property.images.attached? %>
+        <div id="propertyCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+          <div class="carousel-inner rounded-4 shadow">
+            <% @property.images.each_with_index do |image, index| %>
+              <div class="carousel-item <%= 'active' if index.zero? %>">
+                <%= image_tag image, class: "d-block w-100", style: "max-height: 400px; object-fit: cover;" %>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- Carousel Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      <% else %>
+        <p class="text-muted mb-4">No images uploaded for this property.</p>
+      <% end %>
+
+      <!-- Buttons -->
+     <div class="mt-4 text-center">
+      <%= link_to "Edit Property", edit_property_path(@property), class: "btn btn-warning px-4 fw-semibold me-2" %>
+      <%= link_to "Back to My Properties", properties_path, class: "btn btn-outline-light px-4 fw-semibold" %>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+

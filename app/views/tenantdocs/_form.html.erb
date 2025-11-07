@@ -1,0 +1,55 @@
+<div class="container mt-5">
+  <div class="card blur-card p-4 mx-auto" style="max-width: 600px;">
+    <%= form_with(model: @tenantdoc, local: true, html: { multipart: true }) do |form| %>
+      
+      <% if @tenantdoc.errors.any? %>
+        <div class="alert alert-danger">
+          <h4><%= pluralize(@tenantdoc.errors.count, "error") %> prohibited this document from being saved:</h4>
+          <ul>
+            <% @tenantdoc.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, class: "form-control", placeholder: "Enter document name" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :doc_type, class: "form-label" %>
+        <%= form.text_field :doc_type, class: "form-control", placeholder: "Enter document type" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :tenant_id, class: "form-label" %>
+        <%= form.number_field :tenant_id, class: "form-control", placeholder: "Enter tenant ID" %>
+      </div>
+
+      <!-- Profile Picture Upload -->
+      <div class="mb-3">
+        <%= form.label :profile_pic, "Upload Photo", class: "form-label" %>
+        <%= form.file_field :profile_pic, class: "form-control", accept: "image/*" %>
+        <% if @tenantdoc.persisted? && @tenantdoc.profile_pic.attached? %>
+          <p>Current: <%= image_tag @tenantdoc.profile_pic.variant(resize_to_limit: [50,50]) %></p>
+        <% end %>
+      </div>
+
+      <!-- Document Upload -->
+      <div class="mb-3">
+        <%= form.label :document, "Upload Document (PDF)", class: "form-label" %>
+        <%= form.file_field :document, class: "form-control", accept: "application/pdf" %>
+        <% if @tenantdoc.persisted? && @tenantdoc.document.attached? %>
+          <p>Current: <%= link_to 'View', url_for(@tenantdoc.document), target: "_blank" %></p>
+        <% end %>
+      </div>
+
+      <div class="text-center">
+        <%= form.submit "Save Document", class: "btn btn-primary px-4" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

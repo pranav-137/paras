@@ -1,0 +1,48 @@
+<style>.navbar{background: transparent;
+    backdrop-filter: blur(0px);border-bottom: none}</style>
+<nav class="navbar">
+  <div class="lnav">
+    <%= image_tag "logo.png", alt: "Logo", class: "site-logo" %>
+  </div>
+  <div class="rnav">
+    <ul>
+      <li><%= link_to "About", about_path %></li>
+      <li><%= link_to "Contact-Us", contact_path %></li>
+      <li><%= link_to "Gallery", gallery_path %></li>
+
+      <% if user_signed_in? %>
+        <% if current_user.admin? %>
+          <li><%= link_to "Admin Dashboard", admin_path %></li>
+        <% elsif current_user.owner? %>
+          <li><%= link_to "Owner Dashboard", owners_path %></li>
+        <% elsif current_user.tenant? %>
+          <li><%= link_to "My Bookings", tenants_path %></li>
+        <% end %>
+        <li>
+          <%= link_to "Logout", destroy_user_session_path,
+                      method: :delete,
+                      data: { confirm: "Are you sure?", turbo: false } %>
+        </li>
+      <% else %>
+        <li><%= link_to "Sign Up / Login", new_user_session_path %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<div class="center-container">
+  <div class="typewriter">Welcome To Paras</div>
+</div>
+
+<div class="d-flex align-items-center min-vh-85">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5">
+        <h2 class="pt-5 mb-2 text-shadow-lg">Where Comfort Meets Perfection</h2>
+        <p class="fs-5 mb-0 text-shadow-lg">
+          Our promise. Every detail is crafted to ensure you experience ultimate ease without compromising on style or quality. From thoughtfully designed spaces to seamless services, we create an environment where relaxation and excellence coexist perfectly, making every moment truly enjoyable.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+<style>
+  body {
+    min-height: 100vh;
+  }
+
+  /* Glass-like blurred card */
+  .blur-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: black;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Accordion styles */
+  .accordion-button {
+    background: rgba(255, 255, 255, 0.4);
+    color: black;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .accordion-button:not(.collapsed) {
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .accordion-body {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(6px);
+    color: black;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Custom button styles */
+  .btn-custom {
+    backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    color: black;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .btn-custom:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+
+  /* Headings */
+  h2 {
+    color: black;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+    font-weight: 700;
+  }
+</style>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Tenant Document Details</h2>
+
+  <div class="card p-4 mb-3 blur-card mx-auto" style="max-width: 600px;">
+    <p><strong>ID:</strong> <%= @tenantdoc.id %></p>
+    <p><strong>Name:</strong> <%= @tenantdoc.name %></p>
+    <p><strong>Document Type:</strong> <%= @tenantdoc.doc_type %></p>
+    <p><strong>Tenant ID:</strong> <%= @tenantdoc.tenant_id %></p>
+    <p><strong>Created At:</strong> <%= @tenantdoc.created_at.strftime("%d-%m-%Y %I:%M %p") %></p>
+    <p><strong>Updated At:</strong> <%= @tenantdoc.updated_at.strftime("%d-%m-%Y %I:%M %p") %></p>
+  </div>
+
+  <!-- Accordion for Uploaded Files -->
+  <div class="accordion mx-auto" id="docAccordion" style="max-width: 600px;">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage" aria-expanded="false" aria-controls="collapseImage">
+          View Profile Picture
+        </button>
+      </h2>
+      <div id="collapseImage" class="accordion-collapse collapse" aria-labelledby="headingOne">
+        <div class="accordion-body text-center">
+          <% if @tenantdoc.profile_pic.attached? %>
+            <%= image_tag @tenantdoc.profile_pic.variant(resize_to_limit: [200, 200]), class: "img-fluid rounded shadow" %>
+          <% else %>
+            <p>No profile picture uploaded.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePDF" aria-expanded="false" aria-controls="collapsePDF">
+          View Uploaded Document (PDF)
+        </button>
+      </h2>
+      <div id="collapsePDF" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+        <div class="accordion-body text-center">
+          <% if @tenantdoc.document.attached? %>
+            <%= link_to "Open PDF", url_for(@tenantdoc.document), target: "_blank", class: "btn btn-custom" %>
+          <% else %>
+            <p>No document uploaded.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= link_to "Edit", edit_tenantdoc_path(@tenantdoc), class: "btn btn-warning me-2" %>
+    <%= link_to "Delete", tenantdoc_path(@tenantdoc), method: :delete, data: { confirm: "Are you sure you want to delete this document?" }, class: "btn btn-danger me-2" %>
+    <%= link_to "Back to List", tenantdocs_path, class: "btn btn-secondary" %>
+  </div>
+</div>
+
+<!-- JavaScript to allow toggle open/close both ways -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const accordions = document.querySelectorAll('.accordion-button');
+
+    accordions.forEach(button => {
+      button.addEventListener('click', function () {
+        const target = document.querySelector(this.dataset.bsTarget);
+        const isOpen = target.classList.contains('show');
+
+        // Allow toggling same section closed
+        if (isOpen) {
+          const collapse = new bootstrap.Collapse(target, { toggle: false });
+          collapse.hide();
+        }
+      });
+    });
+  });
+</script>

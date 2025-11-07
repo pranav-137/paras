@@ -1,0 +1,150 @@
+<style>
+  body {
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    <%# display: flex; %>
+    justify-content: center;
+    align-items: center;
+  }
+
+  .glass-signup {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 400px;
+    padding: 40px 35px;
+    text-align: center;
+  }
+
+  .glass-signup h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  .glass-signup label {
+    font-weight: 600;
+    color: #f8f8f8;
+    margin-bottom: 6px;
+    display: block;
+    text-align: left;
+  }
+
+  /* Make all input and select fields consistent white */
+  .glass-signup input[type="text"],
+  .glass-signup input[type="email"],
+  .glass-signup input[type="password"],
+  .glass-signup select {
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background: #fff; /* consistent white background */
+    color: #000; /* black text for readability */
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  /* Add nice glow on focus */
+  .glass-signup input:focus,
+  .glass-signup select:focus {
+    background: #fff;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+  }
+
+  .glass-signup option {
+    color: black;
+  }
+
+  .glass-signup .actions input[type="submit"] {
+    width: 100%;
+    background: #ffcc00;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    color: black;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .glass-signup .actions input[type="submit"]:hover {
+    background: #ffd633;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-signup .links {
+    margin-top: 20px;
+  }
+
+  .glass-signup .links a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+
+  .glass-signup .links a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .mar{
+    padding-top: 30px;
+    <%# padding-bottom: 20px; %>
+  }
+</style>
+
+<!-- Centered glass sign-up box -->
+<div class="container-fluid d-flex justify-content-center align-items-center mar">
+  <div class="glass-signup">
+    <h2>Sign up</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="mb-3">
+        <%= f.label :name %>
+        <%= f.text_field :name, autofocus: true, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :role %>
+        <%= f.select :role, options_for_select([['Owner', 'owner'], ['Tenant', 'tenant']]), {}, class: "form-select" %>
+      </div>
+
+      <div class="actions mt-3">
+        <%= f.submit "Sign up", class: "btn btn-warning fw-bold w-100" %>
+      </div>
+    <% end %>
+
+    <div class="links mt-3">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

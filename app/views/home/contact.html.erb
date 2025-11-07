@@ -1,0 +1,146 @@
+<style>
+  .bc{
+    color: black;
+  }
+  ..bc::placeholder {
+  color: black;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.bc:focus::placeholder {
+  color: transparent; /* hides placeholder on focus */
+}
+.pg {
+  background: rgba(255, 255, 255, 0.1); /* transparent white */
+  backdrop-filter: blur(8px); /* blur effect */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    color: black;
+    
+  }
+
+  .contact-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    color: black;
+  }
+
+  .form-control, .btn {
+    background: transparent;
+    color: black;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .form-control::placeholder {
+    color: rgba(1, 1, 1, 0.7);
+  }
+
+  .btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .social-links a {
+    margin-right: 10px;
+  }
+
+  .right-buttons .btn {
+    width: 120px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.2) ;
+  }
+</style>
+
+<div class="container-fluid h-100 d-flex align-items-center justify-content-center mt-5 pt-5 ">
+  <div class="row w-100 mx-3">
+    <!-- Left Section -->
+    <div class="col-md-3 d-flex flex-column justify-content-center">
+      <!-- Your Details Card -->
+      <div class="glass-card mb-4 text-shadow-lg">
+        <h5 class="fw-bold mb-3 text-center">My Details</h5>
+        <p><strong>Name:</strong> Pranav Kumar</p>
+        <p><strong>Email:</strong> pranavkumar12384@gmail.com</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/pranav-kumar" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="25" height="25" alt="LinkedIn">
+          </a>
+          <a href="https://www.instagram.com/your_insta_id" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="25" height="25" alt="Instagram">
+          </a>
+        </div>
+      </div>
+
+      <!-- Registered Address Card -->
+      <div class="glass-card text-shadow-lg">
+        <h5 class="fw-bold mb-3 text-center">Registered Address</h5>
+        <p>
+          Paras Accommodation Private Limited<br>
+          2nd Sector, HSR Layout,<br>
+          Somasundara Palya, Near Power Station,<br>
+          Bangalore, Karnataka, 560102
+        </p>
+      </div>
+    </div>
+
+    <!-- Center Contact Form -->
+    <div class="col-md-6 d-flex justify-content-center align-items-center mb-5 pb-5">
+      <div class="contact-form w-100">
+        <h3 class="text-center mb-4 fw-bold text-shadow-lg ">Contact Us</h3>
+        <%= form_with url: send_message_path, method: :post, local: true do %>
+          <div class="mb-3 text-shadow-lg">
+            <%= label_tag :name, "Your Name", class: "form-label" %>
+            <%= text_field_tag :name, nil, class: "form-control", placeholder: "Enter your name", required: true %>
+          </div>
+
+          <div class="mb-3 text-shadow-lg">
+            <%= label_tag :email, "Your Email", class: "form-label" %>
+            <%= email_field_tag :email, nil, class: "form-control", placeholder: "Enter your email", required: true %>
+          </div>
+
+          <div class="mb-3 text-shadow-lg">
+            <%= label_tag :subject, "Subject", class: "form-label" %>
+            <%= text_field_tag :subject, nil, class: "form-control", placeholder: "Enter subject", required: true %>
+          </div>
+
+          <div class="mb-3 text-shadow-lg">
+            <%= label_tag :message, "Message", class: "form-label" %>
+            <%= text_area_tag :message, nil, class: "form-control", placeholder: "Write your message...", rows: 5, required: true %>
+          </div>
+
+          <div class="text-center text-shadow-lg">
+            <%= submit_tag "Send Message", class: "btn btn-outline-light px-4 py-2" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Right Side Buttons -->
+   
+    <div class="col-md-3 d-flex flex-column justify-content-center align-items-center right-buttons">
+      <div class="pg">
+      <button class="btn btn-outline-light mb-2" onclick="window.location.href='/'">Back to Home</button>
+      <button class="btn btn-outline-light mb-2" onclick="window.location.href='/about'">About</button>
+      <button class="btn btn-outline-light"><%= link_to "Gallery","/gallary", class: "text-light text-decoration-none" %></button>
+
+    </div>
+  </div>
+</div>
+</div>
+

@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>Tenant Documents</h2>
+   <div class="d-flex gap-2">
+    <%= link_to "Add New Document", new_tenantdoc_path, class: "btn btn-success" %>
+  <%= link_to "Back", tenants_path, class: "btn btn-secondary" %>
+  </div>
+</div>
+
+
+<table class="table table-bordered table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Document_ID</th>
+      <th>Name</th>
+      <th>Doc Type</th>
+      <th>Tenant_ID</th>
+      <th>Tenant_Name</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tenantdocs.each do |doc| %>
+      <tr>
+        <td><%= doc.id %></td>
+        <td><%= doc.name %></td>
+        <td><%= doc.doc_type %></td>
+        <td><%= doc.tenant_id %></td>
+        <td><%= doc.tenant.first_name %></td>
+        <td><%= doc.created_at.strftime("%d-%m-%Y") %></td>
+        <td>
+          <%= link_to 'View', tenantdoc_path(doc), class: 'btn btn-sm btn-primary' %> 
+          <%= link_to 'Edit', edit_tenantdoc_path(doc), class: 'btn btn-warning btn-sm' %>
+          <%= link_to 'Delete', tenantdoc_path(doc), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

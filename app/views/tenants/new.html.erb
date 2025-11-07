@@ -1,0 +1,7 @@
+<h2>Add New Tenant</h2>
+
+<%= form_with(model: @tenant, local: true) do |form| %>
+  <%= render 'form', form: form %>
+<% end %>
+
+<%= link_to 'Back', tenants_path, class: 'btn btn-secondary mt-3' %>

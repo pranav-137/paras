@@ -1,0 +1,13 @@
+<div class="container mt-4">
+  <div class="card shadow p-4">
+    <h3><%= @owner.first_name %> <%= @owner.last_name %></h3>
+    <hr>
+    <p><strong>Email:</strong> <%= @owner.email %></p>
+    <p><strong>Address:</strong> <%= @owner.address_line %>, <%= @owner.city %>, <%= @owner.state %>, <%= @owner.country %> - <%= @owner.pin_code %></p>
+
+    <div class="mt-3">
+      <%= link_to 'Edit', edit_owner_path(@owner), class: 'btn btn-warning' %>
+      <%= link_to 'Back', owners_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</div>

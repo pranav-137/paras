@@ -1,0 +1,118 @@
+<style>
+  .bc {
+    color: black; /* text color */
+  }
+
+  .bc::placeholder {
+    color: black;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .bc:focus::placeholder {
+    color: transparent; /* hides placeholder on focus */
+  }
+</style>
+
+<div class="d-flex justify-content-center mt-5">
+  <div class="card p-4 shadow-lg"
+       style="background: rgba(255, 255, 255, 0.1);
+              backdrop-filter: blur(10px);
+              border: 1px solid rgba(255, 255, 255, 0.2);
+              width: 700px;
+              border-radius: 20px;">
+ 
+    <%= form_with model: @tenant, local: true do |form| %>
+
+      <!-- First + Last Name -->
+      <div class="row mb-3 bc">
+        <div class="col">
+          <%= form.label :first_name, class: "form-label text-black fw-semibold" %>
+          <%= form.text_field :first_name, class: "form-control bc", placeholder: "Enter first name" %>
+        </div>
+        <div class="col">
+          <%= form.label :last_name, class: "form-label text-black fw-semibold" %>
+          <%= form.text_field :last_name, class: "form-control bc", placeholder: "Enter last name" %>
+        </div>
+      </div>
+
+      <!-- Email + Phone -->
+      <div class="row mb-3 bc">
+        <div class="col">
+          <%= form.label :email, class: "form-label text-black fw-semibold" %>
+          <%= form.email_field :email, class: "form-control bc", placeholder: "Enter email" %>
+        </div>
+        <div class="col">
+          <%= form.label :phone, class: "form-label text-black fw-semibold" %>
+          <%= form.text_field :phone, class: "form-control bc", placeholder: "Enter phone number" %>
+        </div>
+      </div>
+
+      <!-- Address Lines -->
+      <div class="mb-3 bc">
+        <%= form.label :street_address, "Street Address", class: "form-label text-black fw-semibold" %>
+        <%= form.text_field :street_address, class: "form-control bc", placeholder: "Enter street address" %>
+      </div>
+
+      <div class="mb-3 bc">
+        <%= form.label :street_address_2, "Street Address 2", class: "form-label text-black fw-semibold" %>
+        <%= form.text_field :street_address_2, class: "form-control bc", placeholder: "Enter street address 2" %>
+      </div>
+
+      <!-- City + Region -->
+      <div class="row mb-3 bc">
+        <div class="col">
+          <%= form.label :city, class: "form-label text-black fw-semibold" %>
+          <%= form.text_field :city, class: "form-control bc", placeholder: "City" %>
+        </div>
+        <div class="col">
+          <%= form.label :region, "State/Region", class: "form-label text-black fw-semibold" %>
+          <%= form.text_field :region, class: "form-control bc", placeholder: "State/Region" %>
+        </div>
+      </div>
+
+      <!-- Country + Postal Code -->
+      <div class="row mb-4 bc">
+        <div class="col">
+          <%= form.label :country, class: "form-label text-black fw-semibold" %>
+          <%= form.text_field :country, class: "form-control bc", placeholder: "Country" %>
+        </div>
+        <div class="col">
+          <%= form.label :postal_code, "Postal Code", class: "form-label text-black fw-semibold" %>
+          <%= form.text_field :postal_code, class: "form-control bc", placeholder: "Postal Code" %>
+        </div>
+      </div>
+
+      <!-- Check-in + Check-out -->
+      <div class="row mb-3 bc">
+        <div class="col">
+          <%= form.label :check_in, "Check-in Date", class: "form-label text-black fw-semibold" %>
+          <%= form.date_field :check_in, class: "form-control bc" %>
+        </div>
+        <div class="col">
+          <%= form.label :check_out, "Check-out Date", class: "form-label text-black fw-semibold" %>
+          <%= form.date_field :check_out, class: "form-control bc" %>
+        </div>
+      </div>
+
+      <!-- Adults + Children -->
+      <div class="row mb-4 bc">
+        <div class="col">
+          <%= form.label :adults, "Number of Adults", class: "form-label text-black fw-semibold" %>
+          <%= form.number_field :adults, class: "form-control bc", placeholder: "Adults" %>
+        </div>
+        <div class="col">
+          <%= form.label :children, "Number of Children", class: "form-label text-black fw-semibold" %>
+          <%= form.number_field :children, class: "form-control bc", placeholder: "Children" %>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <%= form.submit @tenant.new_record? ? "Create Tenant" : "Update Tenant", 
+            class: "btn btn-success fw-semibold shadow-sm" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

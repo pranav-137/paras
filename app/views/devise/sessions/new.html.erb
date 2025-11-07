@@ -1,0 +1,145 @@
+<style>
+  body {
+    background-size: cover;
+    margin-top: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .mar{
+    margin-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  .glass-login {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 400px;
+    padding: 40px 35px;
+    text-align: center;
+  }
+
+  .glass-login h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  .glass-login .field {
+    text-align: left;
+    margin-bottom: 18px;
+  }
+
+  .glass-login label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+    color: #f8f8f8;
+  }
+
+  .glass-login input[type="email"],
+  .glass-login input[type="password"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .glass-login input[type="email"]:focus,
+  .glass-login input[type="password"]:focus {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+  }
+
+  .glass-login .field input[type="checkbox"] {
+    accent-color: #ffcc00;
+  }
+
+  .glass-login .field label[for="remember_me"] {
+    display: inline;
+    font-size: 3rem;
+    color: #ddd;
+    padding-left: 5px;
+  }
+
+  .glass-login .actions input[type="submit"] {
+    width: 100%;
+    background: #ffcc00;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    color: black;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .glass-login .actions input[type="submit"]:hover {
+    background: #ffd633;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-login .links {
+    margin-top: 20px;
+  }
+
+  .glass-login .links a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+
+  .glass-login .links a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+</style>
+
+<!-- Bootstrap container for perfect centering -->
+<div class="container-fluid d-flex justify-content-center align-items-center mar">
+  <div class="glass-login">
+    <h2>Log in</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field d-flex align-items-center">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="actions mt-3">
+        <%= f.submit "Log in" %>
+      </div>
+    <% end %>
+
+    <div class="links">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

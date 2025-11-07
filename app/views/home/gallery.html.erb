@@ -1,0 +1,23 @@
+<h1>Choose Your Perfect Accomodation</h1>
+
+<% if @properties.any? %>
+  <div class="row">
+    <% @properties.each do |property| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <% if property.images.attached? %>
+            <%= image_tag property.images.third, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+          <% end %>
+          <div class="card-body">
+            <h5><%= property.name %></h5>
+            <%= link_to "Book Now", new_booking_path(property_id: property.id), class: "btn btn-primary btn-sm" %>
+            <%= link_to "View", property_path(property), class: "btn btn-primary btn-sm" %>
+            
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>No properties added yet.</p>
+<% end %>
