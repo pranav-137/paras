@@ -1,0 +1,177 @@
+<style>
+  body {
+    height: 100vh;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .glass-edit {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 450px;
+    padding: 40px 35px;
+    color: #fff;
+  }
+
+  .glass-edit h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  .glass-edit label {
+    font-weight: 600;
+    color: #f8f8f8;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .glass-edit input[type="email"],
+  .glass-edit input[type="password"],
+  .glass-edit input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background: #fff; /* consistent white background */
+    color: #000;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+  }
+
+  .glass-edit input:focus {
+    background: #fff;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+  }
+
+  .glass-edit .actions input[type="submit"] {
+    width: 100%;
+    background: #ffcc00;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    color: black;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+
+  .glass-edit .actions input[type="submit"]:hover {
+    background: #ffd633;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.2);
+  }
+
+  .cancel-account {
+    text-align: center;
+    margin-top: 25px;
+  }
+
+  .cancel-account h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffb3b3;
+  }
+
+  .cancel-account button {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .cancel-account button:hover {
+    background-color: #ff6666;
+    transform: translateY(-2px);
+  }
+
+  .back-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .back-link a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .back-link a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .mar{
+    padding-top: 150px;
+    padding-bottom: 100px;
+  }
+</style>
+
+<div class="container-fluid d-flex justify-content-center align-items-center mar">
+  <div class="glass-edit">
+    <h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
+        <%= f.password_field :password, autocomplete: "new-password" %>
+        <% if @minimum_password_length %>
+          <em><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+        <%= f.password_field :current_password, autocomplete: "current-password" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Update" %>
+      </div>
+    <% end %>
+
+    <div class="cancel-account">
+      <h3>Cancel my account</h3>
+      <%= button_to "Cancel my account", registration_path(resource_name),
+          data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },
+          method: :delete %>
+    </div>
+
+    <div class="back-link">
+      <%= link_to "Back", :back %>
+    </div>
+  </div>
+</div>

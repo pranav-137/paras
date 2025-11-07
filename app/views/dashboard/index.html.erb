@@ -1,0 +1,19 @@
+<h1>Dashboard</h1>
+
+<p><strong>Total Owner Documents:</strong> <%= @total_docs %></p>
+<p><strong>Total Owners:</strong> <%= @total_owners %></p>
+<p><strong>Total Tenants:</strong> <%= @total_tenants %></p>
+
+<h2>Documents by Type</h2>
+<ul>
+  <% @docs_by_type.each do |type, count| %>
+    <li><%= type %>: <%= count %></li>
+  <% end %>
+</ul>
+
+<h2>Recent Documents</h2>
+<ul>
+  <% @recent_docs.each do |doc| %>
+    <li><%= doc.name %> — <%= doc.doc_type %> (created <%= time_ago_in_words(doc.created_at) %> ago)</li>
+  <% end %>
+</ul>

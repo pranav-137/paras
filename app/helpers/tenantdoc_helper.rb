@@ -1,0 +1,2 @@
+module TenantdocHelper
+end

@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  <div class="card p-4 shadow mx-auto" style="max-width: 600px;">
+    <h3 class="text-center mb-3">Booking Details</h3>
+
+    <p><strong>Property:</strong> <%= @booking.property.name %></p>
+    <p><strong>Start Date:</strong> <%= @booking.start_date %></p>
+    <p><strong>End Date:</strong> <%= @booking.end_date %></p>
+    <p><strong>Status:</strong> <%= @booking.status %></p>
+
+    <% if @booking.message.present? %>
+      <p><strong>Message:</strong> <%= @booking.message %></p>
+    <% end %>
+
+    <%= link_to "Back to My Bookings", bookings_path, class: "btn btn-secondary mt-3" %>
+  </div>
+</div>

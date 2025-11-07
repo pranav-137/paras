@@ -1,0 +1,122 @@
+<style>
+  body {
+    height: 100vh;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    <%# display: flex; %>
+    justify-content: center;
+    align-items: center;
+  }
+
+  .glass-forgot {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 420px;
+    padding: 40px 35px;
+    color: #fff;
+    text-align: center;
+  }
+
+  .glass-forgot h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  .glass-forgot label {
+    font-weight: 600;
+    color: #f8f8f8;
+    margin-bottom: 6px;
+    display: block;
+    text-align: left;
+  }
+
+  .glass-forgot input[type="email"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background: #fff; /* consistent white */
+    color: #000;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+  }
+
+  .glass-forgot input:focus {
+    background: #fff;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+  }
+
+  .glass-forgot .actions input[type="submit"] {
+    width: 100%;
+    background: #ffcc00;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    color: black;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .glass-forgot .actions input[type="submit"]:hover {
+    background: #ffd633;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.2);
+  }
+
+  .links {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .links a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+
+  .links a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .mar{
+    <%# margin-top: 100px; %>
+    padding-top: 150px;
+    padding-bottom: 100px;
+  }
+</style>
+
+<div class="container-fluid d-flex justify-content-center align-items-center mar">
+  <div class="glass-forgot">
+    <h2>Forgot your password?</h2>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Send me reset password instructions" %>
+      </div>
+    <% end %>
+
+    <div class="links mt-3">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

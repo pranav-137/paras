@@ -1,0 +1,113 @@
+<%# <section class="text-center my-3 px-5 text-shadow-lg">
+  <h2 class="fw-bold mb-2">Discover Your Next Stay</h2>
+  <p class="lead text-shadow-lg fs-5 text fw-semibold">
+    At <strong>Paras</strong>, every home tells a story. Explore our carefully curated stays that blend comfort, convenience, and class — designed to make you feel at home, no matter where you are.
+  </p>
+</section>
+
+
+<div class="sliders-container d-flex flex-wrap justify-content-center gap-5">
+  <% accommodations = [
+    { name: "House of Nation", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Blue Sky Villa", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Hilltop Residency", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "R.K Delux", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] },
+    { name: "Dhingra Apartment", images: ["1.jpg", "2.jpg", "3.jpg"] }
+  ] %>
+
+  <% accommodations.each do |acc| %>
+    <div class="card bg-dark text-white border-0">
+      <div class="slider">
+        <% acc[:images].each do |img| %>
+          <%= image_tag img, alt: acc[:name] %>
+        <% end %>
+      </div>
+      <p class="caption "><%= acc[:name] %></p>
+      <p>Button</p>
+    </div>
+  <% end %>
+</div>
+<div class="row mb-4 mt-4">
+    <div class="col text-center">
+              <%=link_to "Home",root_path, class:"btn btn-secondary btn-lg"%> 
+      <%=link_to "Contact_Us",contact_path, class:"btn btn-secondary btn-lg"%> 
+      <%=link_to "List Your Property",owners_path, class:"btn btn-secondary btn-lg"%> 
+
+    </div>
+  </div>
+
+
+
+<%= javascript_include_tag "https://code.jquery.com/jquery-3.7.1.min.js" %>
+<%= javascript_include_tag "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" %>
+<%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" %>
+<%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" %>
+
+<script>
+  $(document).ready(function () {
+    $('.slider').slick({
+      dots: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 2000
+    });
+  });
+</script>
+
+<style>
+.sliders-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.card {
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+  text-align: center;
+  overflow: hidden;
+}
+.slider img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.caption {
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+}
+.slick-dots {
+  display: flex !important;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.slick-dots li {
+  list-style: none;
+}
+.slick-dots button {
+  border: none;
+  background: #ccc;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  font-size: 0;
+  cursor: pointer;
+}
+.slick-dots .slick-active button {
+  background: #fff;
+}
+</style> %>

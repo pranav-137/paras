@@ -1,0 +1,149 @@
+<!-- app/views/owners/index.html.erb -->
+<style>
+  body {
+    <%# background: url("/assets/bg.jpg") no-repeat center center/cover; %>
+    min-height: 100vh;
+    <%# backdrop-filter: blur(6px); %>
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #000;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  h1, h3 {
+    color: #000;
+    font-weight: 600;
+  }
+
+  .btn {
+    border-radius: 8px;
+  }
+
+  /* Navbar */
+  .dashboard-nav {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 12px 24px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .dashboard-nav a {
+    color: #000;
+    font-weight: 500;
+    margin-right: 20px;
+    text-decoration: none;
+  }
+
+  .dashboard-nav a:hover {
+    text-decoration: underline;
+  }
+
+  /* Accordion style */
+  .accordion-button:not(.collapsed) {
+    background: rgba(255, 255, 255, 0.5);
+    color: #000;
+  }
+
+  .accordion-body {
+    background: rgba(255, 255, 255, 0.3);
+    color: #000;
+  }
+
+  .document-preview img {
+    max-height: 300px;
+    border-radius: 10px;
+  }
+</style>
+<div class="d-flex justify-content-between align-items-center mb-4"> 
+  <h1 >🏡 Owner Dashboard</h1>
+     <%= link_to "Logout",
+                destroy_user_session_path,
+                method: :delete,
+                data: { confirm: "Are you sure?", turbo: false },
+                class: "btn btn-outline-danger px-4 fw-semibold" %>
+  </div>
+</div>
+<div class="container mt-4">
+  <!-- Top Navbar -->
+  <div class="dashboard-nav d-flex justify-content-center">
+    <%= link_to "Add Property", new_property_path, class: "btn btn-outline-dark me-2" %>
+    <%= link_to "View Properties", properties_path, class: "btn btn-outline-dark me-2" %>
+    <%= link_to "My_Docs", ownerdocs_path, class: "btn btn-outline-dark me-2" %>
+
+  </div>
+<%# <%=@owner_bookings = Booking.joins(:property).where(properties: { owner_id: current_user.owner.id })%>
+
+  <!-- Owner Profile Card -->
+  <div class="card glass-card mb-4 p-4">
+    <h3>Profile Details</h3>
+    <% if @owner.persisted? && @owner.first_name.present? %>
+      <p><strong>ID:</strong> <%= @owner.id %></p>
+      <p><strong>Name:</strong> <%= @owner.first_name %> <%= @owner.last_name %></p>
+      <p><strong>Email:</strong> <%= @owner.email %></p>
+      <p><strong>Address:</strong> <%= [@owner.address_line, @owner.city, @owner.state, @owner.country, @owner.pin_code].compact.join(", ") %></p>
+      <%= link_to "Edit Profile", edit_owner_path(@owner), class: "btn btn-primary" %>
+    <% else %>
+      <%= link_to "Add Profile Details", new_owner_path, class: "btn btn-success" %>
+    <% end %>
+  </div>
+
+  <!-- Owner Documents Accordion -->
+  <div class="card glass-card mb-4 p-4">
+    <h3>Owner Documents</h3>
+    <% if @ownerdoc.present? %>
+      <div class="accordion" id="documentAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+              Uploaded Document
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse">
+            <div class="accordion-body document-preview">
+              <p><strong>Document Type:</strong> <%= @ownerdoc.doc_type %></p>
+              <% if @ownerdoc.document&.attached? %>
+                <% if @ownerdoc.document.content_type.start_with?("image/") %>
+                  <%= image_tag @ownerdoc.document, class: "img-fluid", style: "max-height: 300px; object-fit: contain;" %>
+                <% else %>
+                  <p><%= link_to "View / Download Document", url_for(@ownerdoc.document), target: "_blank" %></p>
+                <% end %>
+              <% else %>
+                <p>No document uploaded yet.</p>
+              <% end %>
+              <%= link_to "Edit Document", edit_ownerdoc_path(@ownerdoc), class: "btn btn-primary mt-3" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <%= link_to "Upload Documents", new_ownerdoc_path, class: "btn btn-success" %>
+    <% end %>
+  </div>
+
+  <!-- Property Section 
+  <div class="card glass-card mb-4 p-4">
+    <h3>Properties</h3>
+    <% if @properties.any? %>
+      <ul>
+        <% @properties.each do |property| %>
+          <li>
+            <%= property.name %> — 
+            <%= link_to "Edit", edit_property_path(property), class: "btn btn-sm btn-primary" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No properties added yet.</p>
+    <% end %>
+  </div>
+
+   My Tenants -->
