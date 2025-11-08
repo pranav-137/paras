@@ -16,18 +16,6 @@ test:
   database: paras_test
 
 production:
-  primary: &primary_production
-    <<: *default
-    database: paras_production
-  cache:
-    <<: *primary_production
-    database: paras_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: paras_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: paras_production_cable
-    migrations_paths: db/cable_migrate
+  url: <%= "#{ENV['DATABASE_URL']}?sslmode=require" %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
