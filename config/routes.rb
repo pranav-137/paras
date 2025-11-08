@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get "contact", to: "home#contact"
   post "send_message", to: "home#send_message"
   get "oauth2callback", to: "home#oauth2callback"
-
+  get '/authorize_gmail', to: 'home#authorize_gmail'
 
 
   # Admin
