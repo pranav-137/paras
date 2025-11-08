@@ -19,3 +19,7 @@ production:
   url: <%= "#{ENV['DATABASE_URL']}?sslmode=require" %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+
+  # ✅ Fix for missing cable config (reuses main DB)
+  cable:
+    url: <%= "#{ENV['DATABASE_URL']}?sslmode=require" %>
