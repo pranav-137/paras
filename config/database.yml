@@ -22,5 +22,12 @@ production:
   timeout: 5000
   sslmode: require
 
+  # 👇 This ensures Action Cable (Solid Cable) uses the same DB as main app
+  connects_to:
+    database:
+      writing: <%= ENV["DATABASE_URL"] %>
+      reading: <%= ENV["DATABASE_URL"] %>
+
   cable:
+    adapter: postgresql
     url: <%= ENV["DATABASE_URL"] %>

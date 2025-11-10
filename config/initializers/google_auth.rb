@@ -1,16 +1,16 @@
 # config/initializers/google_auth.rb
-require 'googleauth'
-require 'google/apis/gmail_v1'
-require 'googleauth/stores/file_token_store'
+require "googleauth"
+require "google/apis/gmail_v1"
+require "googleauth/stores/file_token_store"
 
 Rails.logger.info "✅ Loading Google Auth Initializer..."
 
 begin
-  secret_path = Rails.root.join('client_secret.json')
+  secret_path = Rails.root.join("client_secret.json")
 
-  # For Railway: recreate file from ENV if available
-  if ENV['GOOGLE_CLIENT_SECRET_JSON'].present?
-    File.write(secret_path, ENV['GOOGLE_CLIENT_SECRET_JSON'])
+  # ✅ For Railway: recreate client_secret.json file from ENV variable
+  if ENV["GOOGLE_CLIENT_SECRET_JSON"].present?
+    File.write(secret_path, ENV["GOOGLE_CLIENT_SECRET_JSON"])
     Rails.logger.info "📦 Created client_secret.json from environment variable."
   end
 
@@ -18,16 +18,20 @@ begin
     Rails.logger.info "🔑 Found client_secret.json — initializing Google Auth..."
 
     GOOGLE_CLIENT_ID = Google::Auth::ClientId.from_file(secret_path)
-    token_store_path = Rails.root.join('tokens.yaml')
+    token_store_path = Rails.root.join("tokens.yaml")
 
     GOOGLE_TOKEN_STORE = Google::Auth::Stores::FileTokenStore.new(file: token_store_path)
-    GMAIL_SCOPE = 'https://www.googleapis.com/auth/gmail.send'
+    GMAIL_SCOPE = "https://www.googleapis.com/auth/gmail.send"
 
     GOOGLE_AUTHORIZER = Google::Auth::UserAuthorizer.new(
-      GOOGLE_CLIENT_ID, GMAIL_SCOPE, GOOGLE_TOKEN_STORE
+      GOOGLE_CLIENT_ID,
+      GMAIL_SCOPE,
+      GOOGLE_TOKEN_STORE
     )
+
+    Rails.logger.info "✅ Google Auth initialized successfully."
   else
-    Rails.logger.warn("⚠️ client_secret.json missing — creating dummy authorizer placeholder.")
+    Rails.logger.warn("⚠️ client_secret.json missing — initializing dummy Google Auth.")
     GOOGLE_CLIENT_ID = nil
     GOOGLE_TOKEN_STORE = nil
     GMAIL_SCOPE = nil
