@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_25_061107) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_10_063510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -72,6 +72,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_25_061107) do
     t.datetime "updated_at", null: false
     t.index ["property_id"], name: "index_bookings_on_property_id"
     t.index ["tenant_id"], name: "index_bookings_on_tenant_id"
+  end
+
+  create_table "cable_messages", force: :cascade do |t|
+    t.string "channel"
+    t.text "payload"
+    t.datetime "created_at", null: false
+    t.datetime "expires_at"
+    t.index ["channel"], name: "index_cable_messages_on_channel"
+    t.index ["expires_at"], name: "index_cable_messages_on_expires_at"
   end
 
   create_table "ownerdocs", force: :cascade do |t|
