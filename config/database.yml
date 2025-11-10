@@ -22,15 +22,18 @@ test:
 
 production:
   <<: *default
+  # Main Rails DB connection
   url: <%= ENV["DATABASE_URL"] || "postgresql://postgres:root@localhost:5432/paras_production" %>
   sslmode: require
 
-  # ✅ This makes Solid Cable use the same PostgreSQL database
+  # ✅ This makes Solid Cable reuse the same production database
   cable:
     <<: *default
+    adapter: postgresql
     url: <%= ENV["DATABASE_URL"] %>
+    sslmode: require
 
-  # ✅ Also ensure ActiveRecord knows which DBs are connected
+  # ✅ Explicitly define writing/reading roles for safety
   connects_to:
     database:
       writing: :production
