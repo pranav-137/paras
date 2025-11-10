@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_10_072212) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_10_080120) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -115,6 +115,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_10_072212) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_properties_on_owner_id"
+  end
+
+  create_table "solid_cache_entries", force: :cascade do |t|
+    t.binary "key", null: false
+    t.binary "value", null: false
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_solid_cache_entries_on_created_at"
+    t.index ["key"], name: "index_solid_cache_entries_on_key", unique: true
   end
 
   create_table "solid_queue_jobs", force: :cascade do |t|

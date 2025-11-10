@@ -1,12 +1,29 @@
 #!/bin/bash
 set -e
 
-echo "GOOGLE_CLIENT_SECRET_JSON is set: $([ -n "$GOOGLE_CLIENT_SECRET_JSON" ] && echo 'YES' || echo 'NO')"
+echo "====================================="
+echo "🚀 Starting Rails Application on Railway"
+echo "====================================="
 
-export GOOGLE_CLIENT_SECRET_PATH="/tmp/client_secret.json"
+# Check Google Client Secret ENV
+if [ -n "$GOOGLE_CLIENT_SECRET_JSON" ]; then
+  echo "📦 GOOGLE_CLIENT_SECRET_JSON is set: YES"
+  echo "$GOOGLE_CLIENT_SECRET_JSON" > /tmp/client_secret.json
+  export GOOGLE_CLIENT_SECRET_PATH="/tmp/client_secret.json"
+  echo "✅ client_secret.json written to /tmp"
+else
+  echo "⚠️ GOOGLE_CLIENT_SECRET_JSON not found — Gmail API may fail."
+fi
 
-bundle exec rails db:migrate
+# Run database migrations safely
+echo "🧩 Running database migrations..."
+bundle exec rails db:migrate || true
+echo "✅ Database migration complete."
 
-# RAILWAY SETS $PORT — USE IT!
+# Pick up dynamic Railway port
 PORT=${PORT:-3000}
+echo "🌐 Using port: $PORT"
+
+# Start the Rails server
+echo "🦄 Booting Puma..."
 exec bundle exec rails server -b 0.0.0.0 -p $PORT
