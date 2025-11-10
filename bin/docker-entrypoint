@@ -7,6 +7,6 @@ export GOOGLE_CLIENT_SECRET_PATH="/tmp/client_secret.json"
 
 bundle exec rails db:migrate
 
-# Use Railway's PORT env var (default to 80 if not set)
-PORT=${PORT:-80}
+# RAILWAY SETS $PORT — USE IT!
+PORT=${PORT:-3000}
 exec bundle exec rails server -b 0.0.0.0 -p $PORT
