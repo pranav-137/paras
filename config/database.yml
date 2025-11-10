@@ -2,24 +2,25 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
-  password: root
-  host: localhost
-  port: 5432
 
 development:
   <<: *default
   database: paras_development
+  username: postgres
+  password: root
+  host: localhost
+  port: 5432
 
 test:
   <<: *default
   database: paras_test
 
 production:
-  url: <%= "#{ENV['DATABASE_URL']}?sslmode=require" %>
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] || "postgresql://postgres:root@localhost:5432/paras_production" %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  sslmode: require
 
-  # ✅ Fix for missing cable config (reuses main DB)
   cable:
-    url: <%= "#{ENV['DATABASE_URL']}?sslmode=require" %>
+    url: <%= ENV["DATABASE_URL"] %>
