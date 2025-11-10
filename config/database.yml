@@ -2,6 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   <<: *default
@@ -14,20 +15,23 @@ development:
 test:
   <<: *default
   database: paras_test
+  username: postgres
+  password: root
+  host: localhost
+  port: 5432
 
 production:
   <<: *default
   url: <%= ENV["DATABASE_URL"] || "postgresql://postgres:root@localhost:5432/paras_production" %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
   sslmode: require
 
-  # 👇 This ensures Action Cable (Solid Cable) uses the same DB as main app
+  # ✅ This makes Solid Cable use the same PostgreSQL database
+  cable:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+
+  # ✅ Also ensure ActiveRecord knows which DBs are connected
   connects_to:
     database:
-      writing: <%= ENV["DATABASE_URL"] %>
-      reading: <%= ENV["DATABASE_URL"] %>
-
-  cable:
-    adapter: postgresql
-    url: <%= ENV["DATABASE_URL"] %>
+      writing: :production
+      reading: :production
