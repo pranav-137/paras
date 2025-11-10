@@ -21,7 +21,7 @@ bundle exec rails db:migrate || true
 echo "✅ Database migration complete."
 
 # Pick up dynamic Railway port
-PORT=${PORT:-3000}
+PORT=${PORT:-8080}
 echo "🌐 Using port: $PORT"
 
 # Start the Rails server
