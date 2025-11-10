@@ -22,15 +22,15 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV["DATABASE_URL"] || "postgresql://postgres:root@localhost:5432/paras_production" %>
+  url: <%= ENV["DATABASE_URL"] %>
   sslmode: require
 
+# Action Cable — same DB
 cable:
   <<: *default
   url: <%= ENV["DATABASE_URL"] %>
-  sslmode: require
-  # Explicit role mapping — bare symbols (NO colons)
-  connects_to:
-    database:
-      writing: production
-      reading: production
+
+# Solid Queue (background jobs) — same DB
+queue:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>

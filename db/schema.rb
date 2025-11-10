@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_10_063510) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_10_072212) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -115,6 +115,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_10_063510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_properties_on_owner_id"
+  end
+
+  create_table "solid_queue_jobs", force: :cascade do |t|
+    t.string "queue_name"
+    t.text "arguments"
+    t.string "class_name"
+    t.datetime "scheduled_at"
+    t.datetime "finished_at"
+    t.string "status"
+    t.text "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["queue_name"], name: "index_solid_queue_jobs_on_queue_name"
+    t.index ["scheduled_at"], name: "index_solid_queue_jobs_on_scheduled_at"
+    t.index ["status"], name: "index_solid_queue_jobs_on_status"
+  end
+
+  create_table "solid_queue_recurring_executions", force: :cascade do |t|
+    t.string "task_key"
+    t.datetime "last_execution_at"
+    t.datetime "next_execution_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_key"], name: "index_solid_queue_recurring_executions_on_task_key", unique: true
   end
 
   create_table "tenantdocs", force: :cascade do |t|

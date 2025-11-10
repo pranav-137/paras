@@ -1,14 +1,16 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
-# Enable jemalloc for reduced memory usage and latency.
-if [ -z "${LD_PRELOAD+x}" ]; then
-    LD_PRELOAD=$(find /usr/lib -name libjemalloc.so.2 -print -quit)
-    export LD_PRELOAD
+# === 1. Create real client_secret.json from Railway ENV ===
+if [ -n "$GOOGLE_CLIENT_SECRET_JSON" ]; then
+  echo "$GOOGLE_CLIENT_SECRET_JSON" > /rails/client_secret.json
+  echo "client_secret.json created from ENV"
+else
+  echo "WARNING: GOOGLE_CLIENT_SECRET_JSON not set — using dummy"
 fi
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  ./bin/rails db:prepare
-fi
+# === 2. Run migrations ===
+bundle exec rails db:migrate
 
-exec "${@}"
+# === 3. Start server ===
+exec bundle exec rails server -b 0.0.0.0 -p 80
