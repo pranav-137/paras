@@ -65,7 +65,7 @@ USER 1000:1000
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Expose port (Railway automatically maps this)
-EXPOSE 3000
+EXPOSE ${PORT:-3000}
 
 # ✅ CMD uses Railway's dynamic port environment variable
 CMD ["bash", "-c", "bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p ${PORT:-3000}"]
