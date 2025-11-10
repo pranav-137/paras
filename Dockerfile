@@ -32,7 +32,6 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Dummy for build-time auth
-RUN echo '{"installed":{"client_id":"dummy","project_id":"dummy","auth_uri":"dummy","token_uri":"dummy","client_secret":"dummy"}}' > client_secret.json
 
 # Precompile assets with dummy DB
 RUN SECRET_KEY_BASE_DUMMY=1 DATABASE_URL="postgresql://localhost/dummy" ./bin/rails assets:precompile
@@ -53,3 +52,6 @@ USER 1000:1000
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 80
 CMD ["bash", "-c", "bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 80"]
+
+# REMOVE THIS
+RUN echo '{"installed":{"client_id":"dummy",...}}' > client_secret.json

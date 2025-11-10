@@ -1,16 +1,19 @@
 #!/bin/bash
 set -e
 
-# === 1. Create real client_secret.json from Railway ENV ===
+# Debug: Show if variable is set
+echo "GOOGLE_CLIENT_SECRET_JSON is set: $[ -n "$GOOGLE_CLIENT_SECRET_JSON" ] && echo 'YES' || echo 'NO'"
+
 if [ -n "$GOOGLE_CLIENT_SECRET_JSON" ]; then
-  echo "$GOOGLE_CLIENT_SECRET_JSON" > /rails/client_secret.json
-  echo "client_secret.json created from ENV"
+  echo "$GOOGLE_CLIENT_SECRET_JSON" > /tmp/client_secret.json
+  echo "client_secret.json created in /tmp"
+  ls -la /tmp/client_secret.json
 else
   echo "WARNING: GOOGLE_CLIENT_SECRET_JSON not set — using dummy"
 fi
 
-# === 2. Run migrations ===
+export GOOGLE_CLIENT_SECRET_PATH="/tmp/client_secret.json"
+
 bundle exec rails db:migrate
 
-# === 3. Start server ===
 exec bundle exec rails server -b 0.0.0.0 -p 80
