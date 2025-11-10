@@ -38,3 +38,6 @@ client_secret.json
 config/client_secret.json
 token.yaml
 tokens.yaml
+.env
+tokens.yaml
+log/*.log
