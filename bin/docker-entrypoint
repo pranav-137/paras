@@ -1,14 +1,12 @@
 #!/bin/bash
 set -e
 
-# DEBUG: Check if ENV is set
 echo "GOOGLE_CLIENT_SECRET_JSON is set: $([ -n "$GOOGLE_CLIENT_SECRET_JSON" ] && echo 'YES' || echo 'NO')"
 
-# Set path for initializer
 export GOOGLE_CLIENT_SECRET_PATH="/tmp/client_secret.json"
 
-# Run migrations
 bundle exec rails db:migrate
 
-# Start server
-exec bundle exec rails server -b 0.0.0.0 -p 80
+# Use Railway's PORT env var (default to 80 if not set)
+PORT=${PORT:-80}
+exec bundle exec rails server -b 0.0.0.0 -p $PORT
