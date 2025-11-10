@@ -25,12 +25,10 @@ production:
   url: <%= ENV["DATABASE_URL"] || "postgresql://postgres:root@localhost:5432/paras_production" %>
   sslmode: require
 
-  # Makes Solid Cable use the same production database
-  cable:
-    <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
-    sslmode: require
-
+cable:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
+  sslmode: require
   # Explicit role mapping — bare symbols (NO colons)
   connects_to:
     database:

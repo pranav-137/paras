@@ -44,7 +44,8 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN echo '{"installed":{"client_id":"dummy","project_id":"dummy","auth_uri":"dummy","token_uri":"dummy","client_secret":"dummy"}}' > client_secret.json
 
 # ⚙️ Precompile assets using a dummy DATABASE_URL so Rails doesn’t fail
-RUN SECRET_KEY_BASE_DUMMY=1 DATABASE_URL=postgresql://dummy/dummy ./bin/rails assets:precompile
+# GOOD
+RUN SECRET_KEY_BASE_DUMMY=1 DATABASE_URL="postgresql://localhost/dummy" ./bin/rails assets:precompile
 
 # ---------- RUNTIME STAGE ----------
 FROM base
@@ -68,3 +69,5 @@ EXPOSE 80
 
 # Start the Rails server — ensures assets and migrations are ready
 CMD ["bash", "-c", "bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 80"]
+# BAD
+
