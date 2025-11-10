@@ -6,17 +6,37 @@ class CustomDeviseMailer < Devise::Mailer
   include Devise::Controllers::UrlHelpers
   default template_path: 'devise/mailer'
 
-  # Confirmation Email
-  def confirmation_instructions(record, token, opts = {})
+#   # Confirmation Email
+#   def confirmation_instructions(record, token, opts = {})
+#   Rails.logger.info "📨 Sending confirmation email to #{record.email}"
+
+#   # Set up variables for the template
+#   @resource = record
+#   @token = token
+
+#   # ✅ Build the confirmation URL manually
+#   mapping = Devise.mappings[Devise::Mapping.find_scope!(record)]
+#   confirmation_link = confirmation_url(mapping.name, confirmation_token: @token)
+
+#   html_body = <<~HTML
+#     <p>Welcome #{record.email}!</p>
+#     <p>You can confirm your account email through the link below:</p>
+#     <p><a href="#{confirmation_link}">Confirm my account</a></p>
+#   HTML
+
+#   send_gmail_message(
+#     to: record.email,
+#     subject: "Confirm your account",
+#     html_body: html_body
+#   )
+# end
+def confirmation_instructions(record, token, opts = {})
   Rails.logger.info "📨 Sending confirmation email to #{record.email}"
 
-  # Set up variables for the template
   @resource = record
   @token = token
 
-  # ✅ Build the confirmation URL manually
-  mapping = Devise.mappings[Devise::Mapping.find_scope!(record)]
-  confirmation_link = confirmation_url(mapping.name, confirmation_token: @token)
+  confirmation_link = confirmation_url(record, confirmation_token: @token)
 
   html_body = <<~HTML
     <p>Welcome #{record.email}!</p>
