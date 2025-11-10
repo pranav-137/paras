@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Devise modules
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable, :trackable
+         :recoverable, :rememberable, :validatable, :trackable
 
   # Associations
   has_one :owner, dependent: :destroy   # Connect User to Owner profile

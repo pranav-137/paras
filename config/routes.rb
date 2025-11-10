@@ -4,11 +4,10 @@ Rails.application.routes.draw do
   # get "bookings/index"
   # get "bookings/show"
   # Devise
-  devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    sessions: 'users/sessions',
-    confirmations: 'users/confirmations'
-  }, path_names: { sign_in: 'login', sign_out: 'logout' }
+devise_for :users, controllers: {
+  registrations: 'users/registrations',
+  sessions: 'users/sessions'
+}, path_names: { sign_in: 'login', sign_out: 'logout' }, skip: [:confirmations]
 
   # Static
   root "home#index"
